@@ -1,0 +1,118 @@
+<div class="divContainAll">
+    <div id="Misgert">
+    <h1>Add Applicant</h1>
+    <!-- לעשןת כפתור ששולח את כל המידע לDB -->
+    <div id="divForm"> 
+ <form  #trvformAddApplicant="ngForm"  (ngSubmit)="SendApplicant(trvformAddApplicant)" > 
+      <div id="firstpart">  
+  <div class="form-row">
+       <button id="savedButtone" [disabled]="!trvformAddApplicant.valid" type="submit"> <span id="saved" data-toggle="tooltip" title="Save Aplicant!"  class="plusIcon glyphicon glyphicon-floppy-saved"></span> </button>
+    <div class="form-group">
+      <label class="FormInput">Name</label>
+      <input type="text" class="form-control"   [(ngModel)]="name" name="name"  placeholder="Name" required  #Name="ngModel">
+      <div *ngIf="Name.errors && (Name.dirty || Name.touched)" class="alert alert-danger">
+              <p [hidden]="!Name.errors.required" class="error"> 
+                Name is required
+              </p>                  
+    </div>   
+    </div>
+     <div class="form-group">
+      <label class="FormInput">Title</label>
+      <input type="text" class="form-control"   [(ngModel)]="title" name="title" placeholder="Title" required  #Title="ngModel">
+            <div *ngIf="Title.errors && (Title.dirty || Title.touched)" class="alert alert-danger">
+              <p [hidden]="!Title.errors.required" class="error"> 
+                Title is required
+             </p>                  
+    </div> 
+    </div> 
+  </div>
+  <div class="form-group">
+<label class="FormInput"> Email</label>
+<input type="email" class="form-control"    [(ngModel)]="email" name="email"placeholder="Email"  required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" #Email="ngModel"> 
+      <div *ngIf="Email.errors && (Email.dirty || Email.touched)" class="alert alert-danger">
+          <p [hidden]="!Email.errors.pattern" class="error">              
+              Invalid Email
+              </p>                  
+              <p [hidden]="!Email.errors.required" class="error"> 
+                Email is required
+              </p>                  
+    </div> 
+  </div>
+
+<label class="FormInput"> Position </label>
+ <!-- [(ngModel)]="position" name="position" -->
+<select  class="form-control" readonly disabled>   
+    <option>Developer</option>
+</select>
+<div class="form-group">
+<label class="FormInput"> Phone Number </label>
+<input  type="tel" class="form-control"   [(ngModel)]="phone" name="phone" placeholder="Phone Number" pattern="[0-9]{10}"  required #Phone="ngModel" > 
+      <div *ngIf="Phone.errors && (Phone.dirty || Phone.touched)" class="alert alert-danger">
+                       
+              <p [hidden]="!Phone.errors.required" class="error"> 
+                Phone Number is required
+              </p>   
+                <p [hidden]="!Phone.errors.pattern" class="error"> 
+             Invalid Phone Number
+              </p>               
+    </div> 
+</div>
+<div class="form-group">
+<label class="FormInput"> Years of Experience</label>
+<input type="number"  class="form-control"   [(ngModel)]="experience" name="experience"  #Experience="ngModel"  required placeholder="can be expressed as the year that relevant career started" > 
+      <div *ngIf="Experience.errors && (Experience.dirty || Experience.touched)" class="alert alert-danger">
+              <p [hidden]="!Experience.errors.required" class="error"> 
+                Experience is required
+              </p>                  
+    </div> 
+</div>
+
+
+</div>
+<div class="secondpart">
+<div class="form-group">
+<label class="FormInput"> CV Attachment </label>
+<input
+  id="idUpload" type="file" (change)="fileChange($event)" class="upload" value="Upload" 
+ placeholder="CV Attachment (PDF or WORD)" > 
+</div>
+</div>
+
+
+
+ </form>
+<br>
+
+
+<div class="secondpart">
+   
+  <label id="SkillId"> Skillset </label>  
+  <button (click)="ShowaddSkill()"> 
+      <span class="fa fa-plus"></span> Add
+      </button>
+
+
+    <div *ngIf = "AddSkillInput" >
+    <input class="form-control" type="text" [(ngModel)]="newSkill" 
+    name="newSkill" placeholder="Add New Skill">
+    <button (click)="addNewSkill()"> Add Skill</button>
+    </div>
+
+
+  <p *ngFor="let skill of Skills">
+    <input type="checkbox" name="skill" 
+    [(ngModel)]="skill.selected"
+   (change)="SkillsetArray(skill)"
+    [value]="skill.value"> {{skill.skill}}
+    <!-- (click)="SkillsetArray(skill)"  -->
+  </p>
+
+
+
+<!-- </form> -->
+  </div> 
+
+  </div>
+</div>
+
+
